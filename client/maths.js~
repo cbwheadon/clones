@@ -1,0 +1,24 @@
+Games = new Meteor.Collection("games");
+
+Template.translate.game = function (){
+    var game = Games.findOne({_id:Session.get('game_id')});
+    console.log(game);
+    return game;
+};
+
+Template.scratch.events({
+    'keyup': function(){
+	wd = $('#scratch').val();
+	Games.update({_id:Session.get('game_id')},{txt:wd});
+	}
+});
+
+Meteor.startup(function(){
+    var game_id = Games.insert({});
+    Session.set('game_id',game_id);
+    Deps.autorun(function () {
+	  if (Session.get('game_id')) {
+	      Meteor.subscribe('games', game_id);
+	  }
+    });
+});
