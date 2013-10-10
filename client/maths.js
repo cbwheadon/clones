@@ -1,20 +1,39 @@
 Games = new Meteor.Collection("games");
 
+nextQ = function(){
+    $('#scratch').val('');
+    var math = MathJax.Hub.getAllJax("MathDiv")[0];
+    MathJax.Hub.Queue(["Text",math,'']);
+    Meteor.call("nextQuestion",Session.get('game_id'));
+}
+
 Template.scratch.events({
-    'keyup': function(){
-	wd = $('#scratch').val();
-	var math = MathJax.Hub.getAllJax("MathDiv")[0];
-	MathJax.Hub.Queue(["Text",math,wd]);
+    'keyup': function(evt){
+	if (evt.which === 13) {
+	    nextQ();
+	} else {
+	    wd = $('#scratch').val();
+	    var math = MathJax.Hub.getAllJax("MathDiv")[0];
+	    MathJax.Hub.Queue(["Text",math,wd]);
+	}
     }
 });
 
-Template.problem.q = function(){
+Template.buttons.events({
+    'click': function(){
+	nextQ();
+    }
+});
+
+Template.problem.game = function(){
     var game = Games.findOne({_id:Session.get('game_id')});
     if(game && game.hasOwnProperty('q')){
-	console.log(game['q']);
-	var math = MathJax.Hub.getAllJax("MathProblem")[0];
-	MathJax.Hub.Queue(["Text",math,'y+2']);
+	return(game);
     }
+}
+
+Template.problem.rendered = function(){
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
 }
 
 Meteor.startup(function(){

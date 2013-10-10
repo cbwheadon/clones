@@ -9,22 +9,30 @@
   {{> problem}}
   {{> scratch}}
   {{> translate}}
+  {{> buttons}}
 </body>
 
 <template name="problem">
+  <div>Solve:</div>
   <div id="MathProblem">
-    The question is `x^2`
+    `{{game.q}}`
   </div>
 </template>
 
 <template name="scratch">
   <div id="scratchpad">
-  <input id="scratch"/>
+    <input id="scratch"/>
   </div>
 </template>
 
 <template name="translate">
   <div id="MathDiv">
     The answer you provided is: ``.
+  </div>
+</template>
+
+<template name="buttons">
+  <div id="buttons">
+    <input id="next" type="button" value="Next>>">
   </div>
 </template>

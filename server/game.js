@@ -15,10 +15,10 @@ inverseFunction = function(){
 	}
     }
     if(choice == 0){
-	str = "f(x) = " + a + "x " + signused + " " + b + ", find f(-1)(x)";
+	str = "f(x) = " + a + "x " + signused[0] + " " + b + ", find f(-1)(x)";
     } else {
 	if (signused=="-"){
-	    str = "f(x) = " + signused + " " + b + "/x, find f(-1)(x)";
+	    str = "f(x) = " + signused[0] + " " + b + "/x, find f(-1)(x)";
 	} else {
 	    str = "f(x) = " + b + "/x, find f(-1)(x)";
 	}
